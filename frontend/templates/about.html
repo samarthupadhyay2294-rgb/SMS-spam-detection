@@ -1,0 +1,167 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 space-y-16">
+    <!-- Header Title -->
+    <section class="text-center space-y-4" data-aos="fade-down" data-aos-duration="1000">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs font-semibold uppercase tracking-wider mono-text">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>System Architecture & Science</span>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-extrabold orbitron-title text-white">How It Works</h1>
+        <p class="text-[#AAB4C5] max-w-xl mx-auto text-base">
+            Delve deep into the natural language processing pipelines and probabilistic models behind SpamShield AI.
+        </p>
+    </section>
+
+    <!-- Pipeline Visualizer Diagram -->
+    <section class="grid grid-cols-1 md:grid-cols-4 gap-4 relative" data-aos="fade-up" data-aos-duration="1200">
+        <!-- Connecting Line Background for Desktop -->
+        <div class="hidden md:block absolute top-1/2 left-0 w-full h-[2px] bg-gradient-to-r from-cyan-500 via-purple-500 to-emerald-500 z-0 transform -translate-y-1/2 opacity-30"></div>
+        
+        <!-- Step 1: Input Text -->
+        <div class="glass-card p-6 border border-white/5 space-y-3 relative z-10 text-center bg-[#0B1120]">
+            <span class="absolute -top-3 left-4 px-3 py-1 bg-cyan-500 text-[#050816] font-bold text-xs rounded-full mono-text">01</span>
+            <div class="w-10 h-10 mx-auto rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400">
+                <i class="fa-solid fa-envelope-open-text text-lg"></i>
+            </div>
+            <h3 class="font-bold orbitron-title text-white text-sm">Raw Input</h3>
+            <p class="text-xs text-[#AAB4C5]">Paste raw, dirty text containing messages, links, and special characters.</p>
+        </div>
+
+        <!-- Step 2: NLP Clean & Stem -->
+        <div class="glass-card p-6 border border-white/5 space-y-3 relative z-10 text-center bg-[#0B1120]">
+            <span class="absolute -top-3 left-4 px-3 py-1 bg-purple-500 text-white font-bold text-xs rounded-full mono-text">02</span>
+            <div class="w-10 h-10 mx-auto rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400">
+                <i class="fa-solid fa-scissors text-lg"></i>
+            </div>
+            <h3 class="font-bold orbitron-title text-white text-sm">NLP Pipeline</h3>
+            <p class="text-xs text-[#AAB4C5]">Tokenization, stopword exclusions, and root Porter stemming mapping.</p>
+        </div>
+
+        <!-- Step 3: TF-IDF Sparse Vectors -->
+        <div class="glass-card p-6 border border-white/5 space-y-3 relative z-10 text-center bg-[#0B1120]">
+            <span class="absolute -top-3 left-4 px-3 py-1 bg-amber-500 text-white font-bold text-xs rounded-full mono-text">03</span>
+            <div class="w-10 h-10 mx-auto rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400">
+                <i class="fa-solid fa-bezier-curve"></i>
+            </div>
+            <h3 class="font-bold orbitron-title text-white text-sm">TF-IDF Vector</h3>
+            <p class="text-xs text-[#AAB4C5]">Maps words into high-dimensional space vectors based on relative frequency.</p>
+        </div>
+
+        <!-- Step 4: Bayes Classification -->
+        <div class="glass-card p-6 border border-white/5 space-y-3 relative z-10 text-center bg-[#0B1120]">
+            <span class="absolute -top-3 left-4 px-3 py-1 bg-emerald-500 text-[#050816] font-bold text-xs rounded-full mono-text">04</span>
+            <div class="w-10 h-10 mx-auto rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                <i class="fa-solid fa-shield-virus"></i>
+            </div>
+            <h3 class="font-bold orbitron-title text-white text-sm">Model Decision</h3>
+            <p class="text-xs text-[#AAB4C5]">Multinomial Naive Bayes computes joint classes and outputs final threats.</p>
+        </div>
+    </section>
+
+    <!-- Deep Dive Details -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <!-- 1. Text Preprocessing Details -->
+        <div class="glass-card p-6 md:p-8 space-y-6" data-aos="fade-right" data-aos-duration="1000">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-code text-[#00E5FF] text-2xl"></i>
+                <h2 class="text-xl md:text-2xl font-bold orbitron-title text-white">1. NLP & Normalization</h2>
+            </div>
+            <p class="text-sm text-[#AAB4C5] leading-relaxed">
+                Raw messages contain a lot of noise — capital letters, punctuation, and common joining words like "is", "the", and "for" (known as <strong>stopwords</strong>). If we feed these directly to an ML model, it will overfit on high-frequency noise.
+            </p>
+            <p class="text-sm text-[#AAB4C5] leading-relaxed">
+                Our preprocessing pipeline standardizes text:
+            </p>
+            <ul class="space-y-3 text-sm text-[#AAB4C5]">
+                <li class="flex items-start space-x-3">
+                    <i class="fa-solid fa-circle-chevron-right text-cyan-400 mt-1"></i>
+                    <span><strong>Lowercase:</strong> Ensures "CLAIM" and "claim" map to the identical vector index.</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                    <i class="fa-solid fa-circle-chevron-right text-cyan-400 mt-1"></i>
+                    <span><strong>Tokenization:</strong> Splitting clean text blocks into individual semantic tokens.</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                    <i class="fa-solid fa-circle-chevron-right text-cyan-400 mt-1"></i>
+                    <span><strong>Stopword Removal:</strong> Discards language noise words to isolate critical words.</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                    <i class="fa-solid fa-circle-chevron-right text-cyan-400 mt-1"></i>
+                    <span><strong>Porter Stemming:</strong> Reduces suffixes to map related variations (e.g., <em>"winner"</em>, <em>"winning"</em>, and <em>"won"</em> all stem to <em>"win"</em>).</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 2. TF-IDF Representation -->
+        <div class="glass-card p-6 md:p-8 space-y-6" data-aos="fade-left" data-aos-duration="1000">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-calculator text-[#7B2FFF] text-2xl"></i>
+                <h2 class="text-xl md:text-2xl font-bold orbitron-title text-white">2. TF-IDF Vectorization</h2>
+            </div>
+            <p class="text-sm text-[#AAB4C5] leading-relaxed">
+                Computers do not read words; they read numbers. To bridge this gap, we use **TF-IDF (Term Frequency-Inverse Document Frequency)** to vectorize our textual tokens into numerical weights.
+            </p>
+            <div class="bg-slate-950/80 p-4 rounded-lg border border-slate-900 mono-text space-y-2 text-xs">
+                <div class="text-[#00E5FF] font-bold">// Mathematical Foundation</div>
+                <div>TF(t, d) = (Frequency of term t in document d) / (Total terms in d)</div>
+                <div>IDF(t) = log(Total documents / Documents containing t)</div>
+                <div class="text-[#00FFB2]">Weight(t, d) = TF(t, d) * IDF(t)</div>
+            </div>
+            <p class="text-sm text-[#AAB4C5] leading-relaxed">
+                This mechanism ensures that words which appear in almost *every* message get lower weights, while highly distinct terms (like "lottery" or "verify") carry incredibly high threat weights inside the vectorized sparse array.
+            </p>
+        </div>
+
+        <!-- 3. Multinomial Naive Bayes -->
+        <div class="glass-card p-6 md:p-8 space-y-6" data-aos="fade-right" data-aos-duration="1000">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-square-root-variable text-[#00FFB2] text-2xl"></i>
+                <h2 class="text-xl md:text-2xl font-bold orbitron-title text-white">3. Multinomial Naive Bayes</h2>
+            </div>
+            <p class="text-sm text-[#AAB4C5] leading-relaxed">
+                The classification core relies on **Multinomial Naive Bayes**. It is a probabilistic classifier based on Bayes' Theorem, with the "naive" assumption of conditional independence between every term in the feature vector.
+            </p>
+            <div class="bg-slate-950/80 p-4 rounded-lg border border-slate-900 mono-text space-y-2 text-xs">
+                <div class="text-cyan-400 font-bold">// Bayes' Rule Formula</div>
+                <div>P(Spam | Message) = [ P(Message | Spam) * P(Spam) ] / P(Message)</div>
+            </div>
+            <p class="text-sm text-[#AAB4C5] leading-relaxed">
+                Despite its simplifying independence assumptions, Naive Bayes performs exceptionally well in spam classification, outperforming much heavier models due to its resilience against overfitting on high-dimensional text datasets.
+            </p>
+        </div>
+
+        <!-- 4. Threat Level Metrics -->
+        <div class="glass-card p-6 md:p-8 space-y-6" data-aos="fade-left" data-aos-duration="1000">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-triangle-exclamation text-red-400 text-2xl"></i>
+                <h2 class="text-xl md:text-2xl font-bold orbitron-title text-white">4. Cybersecurity Risk Levels</h2>
+            </div>
+            <p class="text-sm text-[#AAB4C5] leading-relaxed">
+                Once Multinomial Naive Bayes predicts class likelihood distributions, we evaluate the threat risk bounds using continuous probability weights:
+            </p>
+            <ul class="space-y-4 text-sm text-[#AAB4C5]">
+                <li class="flex items-start space-x-3">
+                    <span class="px-2 py-0.5 rounded bg-red-500/20 text-[#FF3B5C] font-bold text-xs uppercase mono-text mt-0.5">High Risk</span>
+                    <span>Class predicted as <strong>Spam</strong> and probability weight is <strong>exceeding 85%</strong>. Represents extreme threat indicators, commonly matching OTP fraud attempts or spoof links.</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                    <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold text-xs uppercase mono-text mt-0.5">Medium Risk</span>
+                    <span>Class predicted as <strong>Spam</strong> and probability weight is **between 60% and 85%**. Flagged due to matching highly suspicious vocabulary clusters.</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                    <span class="px-2 py-0.5 rounded bg-[#00FFB2]/20 text-[#00FFB2] font-bold text-xs uppercase mono-text mt-0.5">Low Risk</span>
+                    <span>Class predicted as <strong>Safe</strong>, or predicted as Spam but with probability weight **under 60%**. Represents benign regular communication messages.</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- CTAs to return -->
+    <section class="text-center pb-6" data-aos="zoom-in" data-aos-duration="1000">
+        <a href="/#detector" class="cyber-btn-primary px-10 py-4 shadow-lg shadow-cyan-500/10">Try the Live Detector Scanner Now</a>
+    </section>
+</div>
+{% endblock %}

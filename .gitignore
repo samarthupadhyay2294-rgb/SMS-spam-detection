@@ -1,0 +1,19 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# IDE configurations
+.vscode/
+.idea/
+
+# Local databases and logs
+*.db
+*.log
+backend/database/spamshield.db

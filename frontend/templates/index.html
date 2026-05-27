@@ -1,0 +1,201 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 space-y-24">
+    
+    <!-- Hero Section -->
+    <section class="relative min-h-[70vh] flex flex-col md:flex-row items-center justify-between gap-12 pt-6 overflow-hidden">
+        <!-- Floating Radar Animation Background -->
+        <div class="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
+            <div class="radar-ring" style="width: 200px; height: 200px;"></div>
+            <div class="radar-ring" style="width: 400px; height: 400px;"></div>
+            <div class="radar-ring" style="width: 600px; height: 600px;"></div>
+        </div>
+
+        <!-- Left Side text -->
+        <div class="md:w-1/2 space-y-6 z-10" data-aos="fade-right" data-aos-duration="1000">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider mono-text pulse-glow-anim">
+                <i class="fa-solid fa-circle-check text-[10px]"></i>
+                <span>Next-Gen Cybersecurity Scanner</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                <span class="orbitron-title">SpamShield AI</span> <br>
+                <span id="typing-hero" class="bg-gradient-to-r from-[#00E5FF] to-[#7B2FFF] bg-clip-text text-transparent"></span>
+            </h1>
+            
+            <p class="text-lg text-[#AAB4C5] leading-relaxed max-w-lg">
+                Protect yourself from phishing, malware links, SMS scams, and digital identity fraud using real-time NLP classification and Naive Bayes ML models.
+            </p>
+            
+            <div class="flex flex-wrap gap-4">
+                <a href="#detector" class="cyber-btn-primary px-8 py-3.5 shadow-lg shadow-cyan-500/20 text-center">Detect Spam</a>
+                <a href="/about" class="cyber-btn-secondary px-8 py-3.5 text-center">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Right Side: Graphic Visualizer -->
+        <div class="md:w-1/2 flex items-center justify-center z-10" data-aos="zoom-in" data-aos-duration="1200">
+            <div class="relative w-72 h-72 md:w-96 md:h-96 flex items-center justify-center animate-float">
+                <!-- Outer glowing vector circle -->
+                <div class="absolute inset-0 rounded-full border-2 border-dashed border-[#00E5FF]/20 animate-[spin_60s_linear_infinite]"></div>
+                <!-- Middle neon accent circle -->
+                <div class="absolute w-5/6 h-5/6 rounded-full border border-purple-500/30 animate-[spin_30s_linear_infinite_reverse]"></div>
+                
+                <!-- Inner Shield Vector Core -->
+                <div class="w-2/3 h-2/3 rounded-full bg-gradient-to-tr from-[#0b1120] to-[#111928] border border-[#00E5FF]/40 flex flex-col items-center justify-center shadow-[0_0_50px_rgba(0,229,255,0.15)] relative overflow-hidden">
+                    <!-- Laser Grid Scanner line -->
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00E5FF] to-transparent animate-[loading-scan_4s_linear_infinite] shadow-[0_0_10px_#00E5FF]"></div>
+                    
+                    <i class="fa-solid fa-shield-halved text-7xl text-cyan-400 mb-2 filter drop-shadow-[0_0_15px_rgba(0,229,255,0.6)]"></i>
+                    <span class="orbitron-title text-sm tracking-wider font-bold text-white uppercase mt-2">Core Scanner</span>
+                    <span class="mono-text text-xs text-[#00FFB2] mt-1 tracking-widest uppercase">Secured</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detector Section -->
+    <section id="detector" class="scroll-mt-28 flex justify-center">
+        <div class="w-full max-w-4xl" data-aos="fade-up" data-aos-duration="1000">
+            <!-- Glassmorphism Detector Card -->
+            <div class="glass-card p-6 md:p-8 border border-white/10 relative overflow-hidden shadow-2xl">
+                <!-- Grid Overlay Background -->
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/10 via-transparent to-transparent opacity-50 z-0 pointer-events-none"></div>
+                
+                <div class="relative z-10 space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-terminal text-cyan-400 text-xl"></i>
+                            <h2 class="text-xl md:text-2xl font-bold orbitron-title text-white">Interactive NLP Engine</h2>
+                        </div>
+                        <div class="flex items-center space-x-2 text-xs text-[#AAB4C5] mono-text bg-slate-900/80 px-3 py-1.5 rounded border border-slate-800">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                            <span>Model Active: MultinomialNB</span>
+                        </div>
+                    </div>
+
+                    <!-- Input area -->
+                    <div class="space-y-2">
+                        <label for="sms-input" class="text-sm font-semibold text-slate-300">Message to Analyze</label>
+                        <div class="relative">
+                            <textarea id="sms-input" rows="5" class="cyber-input w-full p-4 text-slate-100 placeholder-slate-500/80 focus:ring-1 focus:ring-cyan-400 focus:outline-none rounded-lg text-base leading-relaxed border border-slate-800" placeholder="Paste your SMS message here..."></textarea>
+                            
+                            <!-- Scanning Laser Animation Line (Initially Hidden) -->
+                            <div id="cyber-scan-laser" class="hidden absolute top-0 left-0 w-full h-[3px] bg-[#00E5FF] shadow-[0_0_12px_#00E5FF] z-10"></div>
+                        </div>
+                        <div class="flex items-center justify-between text-xs text-[#AAB4C5] mono-text mt-1">
+                            <span>Maximum Limit: 1000 characters</span>
+                            <span id="char-counter">0 / 1000</span>
+                        </div>
+                    </div>
+
+                    <!-- Error Alert Panel (Initially Hidden) -->
+                    <div id="error-alert" class="hidden bg-[#FF3B5C]/10 border border-[#FF3B5C]/30 text-[#FF3B5C] px-4 py-3 rounded-lg flex items-center space-x-3 text-sm">
+                        <i class="fa-solid fa-circle-exclamation text-base"></i>
+                        <span id="error-message">Error encountered.</span>
+                    </div>
+
+                    <!-- Trigger Actions -->
+                    <div class="flex flex-wrap items-center justify-end gap-4 border-t border-slate-800/80 pt-6">
+                        <button id="clear-btn" class="cyber-btn-secondary px-6 py-2.5 flex items-center space-x-2 text-sm">
+                            <i class="fa-solid fa-eraser"></i>
+                            <span>Clear Input</span>
+                        </button>
+                        <button id="analyze-btn" class="cyber-btn-primary px-8 py-2.5 flex items-center space-x-2 text-sm shadow-md shadow-cyan-500/10">
+                            <i class="fa-solid fa-circle-nodes"></i>
+                            <span>Analyze Message</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prediction Result Visualizer Panel (Dynamically populated by JS) -->
+            <div id="result-container" class="mt-8 hidden">
+                <!-- JS will inject the Safe Card or Spam Card here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="scroll-mt-28 space-y-12">
+        <div class="text-center space-y-4">
+            <h2 class="text-3xl md:text-4xl font-extrabold orbitron-title text-white">
+                Platform Security Vectors
+            </h2>
+            <p class="text-[#AAB4C5] max-w-xl mx-auto">
+                SpamShield AI combines high-speed NLP tokenization, vocabulary checks, and probability weight vectors to ensure maximum precision.
+            </p>
+        </div>
+
+        <!-- 6 Glassmorphism Feature Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 1. Real-Time Detection -->
+            <div class="glass-card p-6 border border-white/5 space-y-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-12 h-12 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+                    <i class="fa-solid fa-bolt-lightning text-xl"></i>
+                </div>
+                <h3 class="text-lg font-bold orbitron-title text-white">Real-Time Detection</h3>
+                <p class="text-sm text-[#AAB4C5] leading-relaxed">
+                    Instantly classifies SMS contents within sub-milliseconds using localized pipeline workers and cached memory models.
+                </p>
+            </div>
+
+            <!-- 2. AI-Powered Analysis -->
+            <div class="glass-card p-6 border border-white/5 space-y-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-12 h-12 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+                    <i class="fa-solid fa-brain text-xl"></i>
+                </div>
+                <h3 class="text-lg font-bold orbitron-title text-white">AI-Powered Analysis</h3>
+                <p class="text-sm text-[#AAB4C5] leading-relaxed">
+                    Evaluates continuous likelihood profiles using pre-trained Multinomial Naive Bayes models with extreme precision.
+                </p>
+            </div>
+
+            <!-- 3. NLP Classification -->
+            <div class="glass-card p-6 border border-white/5 space-y-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-12 h-12 rounded-lg bg-[#00FFB2]/10 border border-[#00FFB2]/20 flex items-center justify-center text-[#00FFB2]">
+                    <i class="fa-solid fa-code text-xl"></i>
+                </div>
+                <h3 class="text-lg font-bold orbitron-title text-white">NLP Classification</h3>
+                <p class="text-sm text-[#AAB4C5] leading-relaxed">
+                    Performs Porter Stemming, alphanumeric filters, and English stopword exclusions to extract clean grammatical components.
+                </p>
+            </div>
+
+            <!-- 4. Secure Scanning -->
+            <div class="glass-card p-6 border border-white/5 space-y-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="w-12 h-12 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400">
+                    <i class="fa-solid fa-shield-halved text-xl"></i>
+                </div>
+                <h3 class="text-lg font-bold orbitron-title text-white">Secure Scanning</h3>
+                <p class="text-sm text-[#AAB4C5] leading-relaxed">
+                    Protects user identities entirely. We scan texts statelessly and never persist identifying information in permanent raw storage.
+                </p>
+            </div>
+
+            <!-- 5. Fast Prediction -->
+            <div class="glass-card p-6 border border-white/5 space-y-4" data-aos="fade-up" data-aos-delay="500">
+                <div class="w-12 h-12 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+                    <i class="fa-solid fa-gauge-high text-xl"></i>
+                </div>
+                <h3 class="text-lg font-bold orbitron-title text-white">Fast Prediction</h3>
+                <p class="text-sm text-[#AAB4C5] leading-relaxed">
+                    TF-IDF vectorizer compiles text sparse matrices rapidly to output immediate probability risk classes.
+                </p>
+            </div>
+
+            <!-- 6. Cybersecurity Protection -->
+            <div class="glass-card p-6 border border-white/5 space-y-4" data-aos="fade-up" data-aos-delay="600">
+                <div class="w-12 h-12 rounded-lg bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400">
+                    <i class="fa-solid fa-user-shield text-xl"></i>
+                </div>
+                <h3 class="text-lg font-bold orbitron-title text-white">Cybersecurity Protection</h3>
+                <p class="text-sm text-[#AAB4C5] leading-relaxed">
+                    Designed to defend users against modern SMS phishing vectors, OTP hijacking attempts, and lottery spoof scams.
+                </p>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

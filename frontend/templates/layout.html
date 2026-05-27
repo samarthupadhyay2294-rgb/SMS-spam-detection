@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpamShield AI — Premium AI-Powered Cybersecurity Spam Detection</title>
+    
+    <!-- SEO Optimization Meta Tags -->
+    <meta name="description" content="Protect yourself from phishing, spam, and digital fraud using SpamShield AI. Powered by advanced machine learning and NLP algorithms.">
+    <meta name="keywords" content="cybersecurity, spam detection, phishing scanner, machine learning, NLP, SMS security, spam shield">
+    <meta name="author" content="SpamShield AI Team">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#050816',
+                            card: '#0B1120',
+                            cyan: '#00E5FF',
+                            purple: '#7B2FFF',
+                            danger: '#FF3B5C',
+                            success: '#00FFB2'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- CDN Icons (Font Awesome & Lucide Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- AOS Animations Stylesheet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-exclusive-caps/1.0.0/css/font-exclusive-caps.min.css" onerror="this.onerror=null;this.href='https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css'" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    
+    <!-- Custom Cyberpunk Stylesheet -->
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body class="flex flex-col min-h-screen text-slate-100 bg-[#050816]">
+    <!-- Background Elements -->
+    <div class="cyber-grid"></div>
+    <div class="scanlines"></div>
+    
+    <!-- Background Particle Mesh -->
+    <div id="particles-js" class="fixed inset-0 z-[-1] pointer-events-none"></div>
+
+    <!-- Sticky Glassmorphism Header -->
+    {% include 'components/navbar.html' %}
+
+    <!-- Main Content Area -->
+    <main class="flex-grow pt-24 pb-12">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer Component -->
+    {% include 'components/footer.html' %}
+
+    <!-- Animation and Graph CDNs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- App JavaScript Orchestrator -->
+    <script src="/static/js/script.js"></script>
+    <script>
+        // Init Lucide Icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

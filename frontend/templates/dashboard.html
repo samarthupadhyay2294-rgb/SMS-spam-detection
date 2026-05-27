@@ -1,0 +1,109 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 space-y-12">
+    <!-- Header Title -->
+    <section class="text-center space-y-4" data-aos="fade-down" data-aos-duration="1000">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider mono-text">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Threat Intelligence Console</span>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-extrabold orbitron-title text-white">Security Analytics</h1>
+        <p class="text-[#AAB4C5] max-w-xl mx-auto text-base">
+            Track scanned data distributions, threat frequency records, and historical classification results.
+        </p>
+    </section>
+
+    <!-- Stats Matrix Grid -->
+    <section class="grid grid-cols-2 lg:grid-cols-4 gap-4" data-aos="fade-up" data-aos-duration="1000">
+        <!-- 1. Total Scans -->
+        <div class="glass-card p-6 border border-white/5 bg-[#0B1120] relative overflow-hidden">
+            <div class="absolute right-4 top-4 text-slate-700/30 text-4xl"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+            <p class="text-xs font-semibold text-[#AAB4C5] uppercase tracking-wider mono-text">Total Scans</p>
+            <h3 id="stat-total" class="text-3xl md:text-4xl font-extrabold orbitron-title text-white mt-2">0</h3>
+            <span class="text-[10px] text-cyan-400 font-bold uppercase mono-text tracking-wider mt-1 block">Live Monitoring</span>
+        </div>
+
+        <!-- 2. Spam Flagged -->
+        <div class="glass-card p-6 border border-white/5 bg-[#0B1120] relative overflow-hidden">
+            <div class="absolute right-4 top-4 text-[#FF3B5C]/10 text-4xl"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <p class="text-xs font-semibold text-[#AAB4C5] uppercase tracking-wider mono-text">Spam Blocked</p>
+            <h3 id="stat-spam" class="text-3xl md:text-4xl font-extrabold orbitron-title text-[#FF3B5C] mt-2">0</h3>
+            <span id="stat-spam-ratio" class="text-[10px] text-[#FF3B5C] font-bold uppercase mono-text tracking-wider mt-1 block">0% threat ratio</span>
+        </div>
+
+        <!-- 3. Safe Messages -->
+        <div class="glass-card p-6 border border-white/5 bg-[#0B1120] relative overflow-hidden">
+            <div class="absolute right-4 top-4 text-[#00FFB2]/10 text-4xl"><i class="fa-solid fa-shield-halved"></i></div>
+            <p class="text-xs font-semibold text-[#AAB4C5] uppercase tracking-wider mono-text">Safe Passed</p>
+            <h3 id="stat-safe" class="text-3xl md:text-4xl font-extrabold orbitron-title text-[#00FFB2] mt-2">0</h3>
+            <span id="stat-safe-ratio" class="text-[10px] text-[#00FFB2] font-bold uppercase mono-text tracking-wider mt-1 block">0% safe ratio</span>
+        </div>
+
+        <!-- 4. System Precision -->
+        <div class="glass-card p-6 border border-white/5 bg-[#0B1120] relative overflow-hidden">
+            <div class="absolute right-4 top-4 text-purple-700/20 text-4xl"><i class="fa-solid fa-bullseye"></i></div>
+            <p class="text-xs font-semibold text-[#AAB4C5] uppercase tracking-wider mono-text">Model Accuracy</p>
+            <h3 class="text-3xl md:text-4xl font-extrabold orbitron-title text-[#7B2FFF] mt-2">97.8%</h3>
+            <span class="text-[10px] text-purple-400 font-bold uppercase mono-text tracking-wider mt-1 block">100% Precision weight</span>
+        </div>
+    </section>
+
+    <!-- Analytics Charts Grid -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Chart Display Card -->
+        <div class="glass-card p-6 border border-white/5 bg-[#0B1120] flex flex-col items-center justify-center lg:col-span-1 min-h-[350px]" data-aos="fade-right" data-aos-duration="1200">
+            <h3 class="text-sm font-bold orbitron-title text-white self-start mb-6 uppercase tracking-wider border-b border-slate-800 pb-3 w-full flex items-center space-x-2">
+                <i class="fa-solid fa-chart-pie text-cyan-400"></i>
+                <span>Classification Ratio</span>
+            </h3>
+            
+            <!-- Canvas -->
+            <div class="relative w-48 h-48 md:w-56 md:h-56">
+                <canvas id="ratioChart"></canvas>
+            </div>
+            
+            <!-- Fallback text inside chart -->
+            <div id="chart-fallback" class="hidden text-xs text-[#AAB4C5]/70 italic mt-4">
+                Scan messages to generate ratio reports.
+            </div>
+        </div>
+
+        <!-- Table Display Card -->
+        <div class="glass-card p-6 border border-white/5 bg-[#0B1120] lg:col-span-2 overflow-x-auto min-h-[350px]" data-aos="fade-left" data-aos-duration="1200">
+            <div class="flex items-center justify-between mb-6 border-b border-slate-800 pb-3">
+                <h3 class="text-sm font-bold orbitron-title text-white uppercase tracking-wider flex items-center space-x-2">
+                    <i class="fa-solid fa-clock-rotate-left text-purple-400"></i>
+                    <span>Live Threat Scan History</span>
+                </h3>
+                <button id="clear-history-btn" class="text-xs text-[#FF3B5C]/80 hover:text-[#FF3B5C] font-semibold border border-[#FF3B5C]/20 hover:border-[#FF3B5C]/40 bg-[#FF3B5C]/5 hover:bg-[#FF3B5C]/10 px-3 py-1 rounded transition-all duration-200">
+                    <i class="fa-solid fa-trash-can mr-1"></i> Clear Logs
+                </button>
+            </div>
+            
+            <div class="overflow-x-auto w-full">
+                <table class="w-full text-left text-sm border-collapse min-w-[500px]">
+                    <thead>
+                        <tr class="text-xs text-[#AAB4C5] border-b border-slate-800 uppercase mono-text tracking-wider">
+                            <th class="pb-3 w-1/2">Message Excerpt</th>
+                            <th class="pb-3">Verdict</th>
+                            <th class="pb-3">Confidence</th>
+                            <th class="pb-3">Risk</th>
+                            <th class="pb-3 text-right">Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-table-body" class="text-slate-300 divide-y divide-slate-800/50">
+                        <!-- Dynamic items injected here -->
+                        <tr>
+                            <td colspan="5" class="py-12 text-center text-[#AAB4C5]/50 italic">
+                                <i class="fa-solid fa-shield-halved text-4xl text-slate-800 mb-2 block"></i>
+                                No scans recorded yet. Use the scanner tool on the Home page to start.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

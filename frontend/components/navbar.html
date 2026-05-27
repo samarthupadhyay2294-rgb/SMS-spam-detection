@@ -1,0 +1,38 @@
+<header class="fixed top-0 left-0 w-full z-50 bg-[#0B1120]/70 backdrop-blur-md border-b border-slate-800/80 transition-all duration-300">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+        <!-- Logo -->
+        <a href="/" class="flex items-center space-x-2 group">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-cyan-400 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-all duration-300">
+                <i class="fa-solid fa-shield-halved text-lg"></i>
+            </div>
+            <span class="text-xl font-bold tracking-wider orbitron-title text-white group-hover:text-[#00E5FF] transition-colors duration-300">
+                SpamShield <span class="bg-gradient-to-r from-[#00E5FF] to-[#7B2FFF] bg-clip-text text-transparent">AI</span>
+            </span>
+        </a>
+
+        <!-- Desktop Menu -->
+        <nav class="hidden md:flex items-center space-x-8 font-semibold">
+            <a href="/" class="nav-link-effect text-[#AAB4C5] hover:text-white transition-colors duration-200 py-1">Home</a>
+            <a href="/#features" class="nav-link-effect text-[#AAB4C5] hover:text-white transition-colors duration-200 py-1">Features</a>
+            <a href="/dashboard" class="nav-link-effect text-[#AAB4C5] hover:text-white transition-colors duration-200 py-1">Dashboard</a>
+            <a href="/about" class="nav-link-effect text-[#AAB4C5] hover:text-white transition-colors duration-200 py-1">About</a>
+            <a href="/#detector" class="cyber-btn-primary px-5 py-2 text-sm shadow-md shadow-purple-500/10">Launch Scanner</a>
+        </nav>
+
+        <!-- Mobile Toggle -->
+        <button id="menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none transition-colors duration-200" aria-label="Toggle Menu">
+            <i class="fa-solid fa-bars text-2xl" id="menu-icon"></i>
+        </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-[#050816]/95 border-b border-slate-800/80 backdrop-blur-lg transition-all duration-300">
+        <div class="px-4 py-6 flex flex-col space-y-4 font-semibold text-center">
+            <a href="/" class="text-[#AAB4C5] hover:text-white transition-colors duration-200 py-2 border-b border-slate-900">Home</a>
+            <a href="/#features" class="text-[#AAB4C5] hover:text-white transition-colors duration-200 py-2 border-b border-slate-900">Features</a>
+            <a href="/dashboard" class="text-[#AAB4C5] hover:text-white transition-colors duration-200 py-2 border-b border-slate-900">Dashboard</a>
+            <a href="/about" class="text-[#AAB4C5] hover:text-white transition-colors duration-200 py-2 border-b border-slate-900">About</a>
+            <a href="/#detector" class="text-white bg-gradient-to-r from-[#00E5FF] to-[#7B2FFF] w-full py-2.5 shadow-md shadow-purple-500/10 mt-2 rounded-lg">Launch Scanner</a>
+        </div>
+    </div>
+</header>
