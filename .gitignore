@@ -17,3 +17,6 @@ env/
 *.db
 *.log
 backend/database/spamshield.db
+
+# Ignore accidental nested repository
+SMS-spam-detection/
