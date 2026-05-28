@@ -19,6 +19,8 @@ def load_assets():
     """
     Lazily loads the ML model and TF-IDF vectorizer binaries from disk.
     Caches the loaded models globally for sub-millisecond future predictions.
+    If the loaded model is determined to be unfitted (such as the 147-byte empty file),
+    triggers an automated fallback self-healing training routine on the fly.
     """
     global _model, _vectorizer
     if _model is None or _vectorizer is None:
@@ -33,6 +35,47 @@ def load_assets():
             
         with open(MODEL_PATH, 'rb') as f:
             _model = pickle.load(f)
+            
+        # Verify model fit status. Automatically heal if unfitted
+        try:
+            from sklearn.utils.validation import check_is_fitted
+            check_is_fitted(_model)
+        except Exception:
+            print("Detected unfitted model.pkl (empty classifier). Running auto-healing fallback...")
+            try:
+                import csv
+                # Determine raw SMS spam dataset path
+                project_root = os.path.dirname(MODEL_DIR)
+                csv_path = os.path.join(project_root, "dataset", "spam.csv")
+                
+                texts = []
+                labels = []
+                with open(csv_path, mode='r', encoding='latin-1') as f:
+                    reader = csv.reader(f)
+                    next(reader) # skip header row
+                    for row in reader:
+                        if not row or len(row) < 2:
+                            continue
+                        label = 1 if row[0].strip().lower() == 'spam' else 0
+                        labels.append(label)
+                        texts.append(row[1])
+                        
+                # Transform texts and vectorize
+                preprocessed = [transform_text(t) for t in texts]
+                X_features = _vectorizer.transform(preprocessed)
+                
+                # Fit the empty Naive Bayes classifier dynamically in-memory
+                _model.fit(X_features, labels)
+                
+                # Attempt to save the healed model to disk if the filesystem is writeable
+                try:
+                    with open(MODEL_PATH, 'wb') as f:
+                        pickle.dump(_model, f)
+                    print("Auto-healed model saved back to local disk.")
+                except Exception as save_err:
+                    print(f"Could not persist healed model to disk (expected on read-only cloud hosts): {save_err}")
+            except Exception as heal_err:
+                print(f"Failed to execute automated model healing: {heal_err}")
             
     return _model, _vectorizer
 
