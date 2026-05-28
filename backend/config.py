@@ -20,6 +20,7 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     """Production settings."""
     DEBUG = False
+    DB_PATH = '/tmp/spamshield.db'
 
 config_by_name = {
     'development': DevelopmentConfig,

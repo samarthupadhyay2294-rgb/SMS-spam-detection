@@ -2,8 +2,9 @@ services:
   - type: web
     name: spamshield-ai
     env: python
+    plan: free
     buildCommand: pip install -r backend/requirements.txt && python -c "import nltk; nltk.download('punkt', quiet=True); nltk.download('punkt_tab', quiet=True); nltk.download('stopwords', quiet=True)"
-    startCommand: gunicorn backend.app:app
+    startCommand: gunicorn main:app --bind 0.0.0.0:$PORT
     envVars:
       - key: FLASK_ENV
         value: production
