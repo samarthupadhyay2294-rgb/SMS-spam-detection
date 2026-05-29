@@ -3,10 +3,13 @@ services:
     name: spamshield-ai
     env: python
     plan: free
+    rootDir: .
     buildCommand: pip install -r backend/requirements.txt && python -c "import nltk; nltk.download('punkt', quiet=True); nltk.download('punkt_tab', quiet=True); nltk.download('stopwords', quiet=True)"
-    startCommand: gunicorn main:app --bind 0.0.0.0:$PORT
+    startCommand: gunicorn main:app --bind 0.0.0.0:$PORT --timeout 120 --workers 1
     envVars:
       - key: FLASK_ENV
         value: production
       - key: SECRET_KEY
         generateValue: true
+      - key: PYTHON_VERSION
+        value: 3.11.8
