@@ -1,201 +1,302 @@
-# SpamShield AI — Production-Ready AI-Powered Cybersecurity Platform
+# 🛡️ SpamShield AI — Production-Ready SMS Spam & Phishing Detection Platform
 
-SpamShield AI is an internship-grade, portfolio-ready cybersecurity web application designed to scan, analyze, and detect SMS spam and phishing vectors in real-time. Combining robust Natural Language Processing (NLP) with Machine Learning classification pipelines, SpamShield AI provides users with instant, actionable threat intelligence.
+<div align="center">
+
+[![Live Demo](https://img.shields.io/badge/🚀%20Live%20Demo-Render-blueviolet?style=for-the-badge&logo=render&logoColor=white&color=7C3AED)](https://sms-spam-detection-p9h6.onrender.com)
+[![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python&logoColor=white&color=0284C7)](https://www.python.org/)
+[![Framework](https://img.shields.io/badge/Framework-Flask-black?style=for-the-badge&logo=flask&logoColor=white&color=111827)](https://flask.palletsprojects.com/)
+[![Machine Learning](https://img.shields.io/badge/ML%20Engine-Scikit--Learn-orange?style=for-the-badge&logo=scikit-learn&logoColor=white&color=F97316)](https://scikit-learn.org/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge&logo=open-source-initiative&logoColor=white&color=059669)](LICENSE)
+
+**An internship-grade, portfolio-ready cybersecurity web application designed to scan, analyze, and detect SMS spam and phishing vectors in real-time.**
+
+[✨ Explore Live Application](https://sms-spam-detection-p9h6.onrender.com) • [💻 Local Installation](#-local-installation) • [🔌 API Documentation](#-api-reference)
 
 ---
 
+</div>
+
 ## 🛡️ Project Overview
 
-SpamShield AI delivers high-fidelity detection results through a futuristic glassmorphic cyberpunk interface. Users can input suspicious text messages, witness the real-time scanning process, and retrieve deep metrics: including classification verdicts, risk-level assessments, prediction confidence, and suspicious keyword detection.
+**SpamShield AI** delivers high-fidelity threat detection results wrapped inside a futuristic glassmorphic cyberpunk interface. Users can input suspicious text messages, witness the real-time classification process, and instantly retrieve deep threat metrics:
+*   **Classification Verdicts**: Immediate Spam/Ham decision.
+*   **Risk-Level Assessments**: High, Medium, or Low severity.
+*   **Prediction Confidence**: Granular probability output.
+*   **Suspicious Keyword Analysis**: Highlighted threat vectors.
 
-The application utilizes a **Multinomial Naive Bayes** classifier trained on historical SMS datasets, processed alongside a **TF-IDF Vectorizer** to represent natural language mathematically based on term distinctiveness.
+Under the hood, the application utilizes a mathematically optimized **Multinomial Naive Bayes** classifier trained on historical SMS datasets, processed alongside a **TF-IDF Vectorizer** to represent natural language mathematically based on term distinctiveness and frequency.
 
 ---
 
 ## ⚡ Key Features
 
-1. **Sub-Millisecond Classification**: Rapid inference powered by Scikit-Learn Multinomial NB.
-2. **Advanced NLP Pipeline**: Replicates the exact training preprocessing with NLTK Porter Stemming, tokenization, stopword exclusions, and punctuation filters.
-3. **Double-Redundant Analytics**: Records statistics and scan details in both client-side browser `localStorage` and a server-side SQLite database.
-4. **Threat Intelligence Console**: High-end dashboard tracking threat ratios, displaying dynamic Chart.js doughnut visualizations, and logging scan histories in an interactive table.
-5. **Futuristic Visual Design**: Stunning cyberpunk glassmorphism UI styled with Tailwind CSS, custom grid backdrops, GSAP typewriters, AOS scroll reveals, and responsive mobile-first layouts.
-6. **Robust Input Validation**: Strict checks to reject empty strings, invalid payload structures, and oversized messages (capped at 1000 characters).
+*   🏎️ **Sub-Millisecond Classification**: Rapid inference powered by Scikit-Learn's Multinomial Naive Bayes.
+*   🧠 **Advanced NLP Pipeline**: Replicates the exact training preprocessing with NLTK Porter Stemming, tokenization, stopword exclusions, and punctuation filters.
+*   💾 **Double-Redundant Analytics**: Records threat intelligence in both client-side browser `localStorage` and a server-side SQLite database.
+*   📊 **Threat Intelligence Console**: High-end dashboard tracking threat ratios, displaying dynamic Chart.js visualizations, and logging scan histories in an interactive table.
+*   🎨 **Futuristic Cyberpunk UI**: A stunning visual interface featuring:
+    *   Glassmorphic components.
+    *   Dynamic particle backdrops.
+    *   GSAP typewriters & custom typewriter animations.
+    *   AOS (Animate on Scroll) reveal animations.
+*   🛡️ **Robust Input Validation**: Strict checks to reject empty payloads and oversized messages (capped at 1000 characters).
+
+---
+
+## 🏗️ System Architecture & NLP Pipeline
+
+Below is the end-to-end data flow and processing pipeline, from the client interface down to the machine learning inference engine and storage layers:
+
+```mermaid
+graph TD
+    %% Styling Nodes
+    classDef client fill:#7C3AED,stroke:#6D28D9,color:#fff,font-weight:bold;
+    classDef server fill:#0284C7,stroke:#0369A1,color:#fff,font-weight:bold;
+    classDef ml fill:#F97316,stroke:#C2410C,color:#fff,font-weight:bold;
+    classDef db fill:#059669,stroke:#047857,color:#fff,font-weight:bold;
+
+    %% Data Flow
+    UI[Cyberpunk UI / Templates] -->|1. Submit Message| JS[script.js - Fetch Controller]
+    
+    subgraph Client-Side Storage
+        JS -->|2. Local Cache| LS[(localStorage - History & Stats)]
+    end
+    
+    JS -->|3. POST /predict| API[app.py / routes.py - Flask API]
+    
+    subgraph Server-Side Database
+        API -->|4. Log Transaction| SQLite[(SQLite Database)]
+    end
+    
+    subgraph Machine Learning Pipeline
+        API -->|5. Forward Payload| Pre[preprocess.py - NLTK Preprocessor]
+        Pre -->|6. Tokenize & Porter Stem| TFIDF[predictor.py - TF-IDF Vectorizer]
+        TFIDF -->|7. Vectorize Text| MNB[predictor.py - Multinomial Naive Bayes]
+        MNB -->|8. Compute Probability| Risk[confidence_score.py - Risk Evaluator]
+    end
+    
+    Risk -->|9. JSON Response| JS
+    JS -->|10. Render Charts & Logs| UI
+
+    %% Assigning Classes
+    class UI,JS client;
+    class LS,SQLite db;
+    class API server;
+    class Pre,TFIDF,MNB,Risk ml;
+```
 
 ---
 
 ## 🛠️ Technology Stack
 
-| Layer | Technology | Description |
-|---|---|---|
-| **Frontend** | HTML5, CSS3, Vanilla JS, Tailwind CSS | Layout structures, custom cyberpunk grid animations, and DOM rendering. |
-| **Animations** | GSAP, AOS, Particles.js | Neon typing effects, smooth entry fades, and responsive particle backdrops. |
-| **Charts** | Chart.js | Dynamic doughnut graphs summarizing spam vs safe statistics. |
-| **Icons** | Lucide Icons, Font Awesome | Modern icons for visual threat alerts. |
-| **Backend** | Flask, Flask-CORS | WSGI API routing, custom template loading, and server-side logic. |
-| **Database** | SQLite3 | Local persistent logging of server inference logs. |
-| **ML Engine** | Scikit-Learn, NLTK, joblib | TF-IDF token vectorizer and Multinomial Naive Bayes model. |
-| **Deployment** | Docker, Render | Declarative blueprints for single-command hosting. |
+| Layer | Technology | Purpose | Description |
+| :--- | :--- | :--- | :--- |
+| **Frontend UI** | HTML5, CSS3, Vanilla JS, Tailwind CSS | Core Structure & Styling | Modern layouts featuring futuristic glassmorphism and fully responsive views. |
+| **Animations** | GSAP, AOS, Particles.js | Interactive Aesthetics | Custom neon glows, typing indicators, entry transitions, and dynamic canvas backgrounds. |
+| **Data Viz** | Chart.js | Interactive Dashboards | Renders threat ratio distributions (Spam vs. Ham) in real-time. |
+| **Icons** | Lucide Icons, Font Awesome | Threat Vector Indication | Instant visual cues for risk levels and status alerts. |
+| **Backend Engine** | Flask, Flask-CORS | API Routing & Middleware | Python WSGI micro-framework managing routing, model interaction, and CORS policies. |
+| **Data Store** | SQLite3 | Server-Side Logging | Lightweight, transaction-safe database engine logging inference operations. |
+| **AI/ML Core** | Scikit-Learn, NLTK, Joblib | Classification & NLP | Vectorizes raw input text, processes language patterns, and outputs classification metrics. |
+| **Deployment** | Docker, Render | Containerization & Hosting | Unified cloud architecture utilizing standard container images for 100% environment reproducibility. |
 
 ---
 
-## 📂 Project Structure
+## 📂 Repository Structure
 
 ```text
 SpamShield-AI/
 ├── backend/
-│   ├── app.py                # Flask app factory, choice loaders, and views
-│   ├── routes.py             # Route definitions (/health, /predict, /api/history)
+│   ├── app.py                # Flask application factory & middleware orchestrator
+│   ├── routes.py             # Server endpoints (/health, /predict, /api/history)
 │   ├── config.py             # Environment configurations (dev, testing, production)
-│   ├── requirements.txt      # Python dependencies
+│   ├── requirements.txt      # Python backend packages & dependencies
 │   ├── model/
 │   │   ├── model.pkl         # Serialized Multinomial Naive Bayes classifier
 │   │   └── vectorizer.pkl    # Serialized TF-IDF text vectorizer
 │   ├── utils/
-│   │   ├── preprocess.py     # NLP pipeline (Porter stemming, tokenise, stopwords)
-│   │   ├── predictor.py      # Laser predict inference orchestrator
-│   │   ├── keyword_detector.py # Rule-based spam word scan
-│   │   └── confidence_score.py # Confidence conversions and risk level weights
+│   │   ├── preprocess.py     # NLTK Pipeline (tokenization, stemming, stopwords)
+│   │   ├── predictor.py      # Inference manager & pickle deserializer
+│   │   ├── keyword_detector.py # Suspicious keyword lookup logic
+│   │   └── confidence_score.py # Risk weight scoring & threat levels
 │   └── database/
-│       └── db.py             # SQLite helper (schema setups, history logs)
+│       └── db.py             # SQLite helper (schema creation & records INSERT/SELECT)
 ├── frontend/
 │   ├── templates/
-│   │   ├── layout.html       # Outer shell container with CDN loads
-│   │   ├── index.html        # Landing page, hero, interactive scanner
-│   │   ├── about.html        # Pipeline architecture and ML theory panel
-│   │   └── dashboard.html    # Statistics, Chart.js, and logs table
+│   │   ├── layout.html       # Head templates & CDN loader shell
+│   │   ├── index.html        # Interactive scan console & hero screen
+│   │   ├── about.html        # NLP pipeline architectural breakdown panel
+│   │   └── dashboard.html    # Chart.js analytics & query logs table
 │   ├── static/
-│   │   ├── css/style.css     # Cyber grids, neon glows, and animations
-│   │   └── js/script.js      # JS orchestrator, forms, async submits, Chart.js
+│   │   ├── css/style.css     # Glowing styling, grid layout & backdrop rules
+│   │   └── js/script.js      # Form handler, Chart.js updates & localStorage syncing
 │   └── components/
-│       ├── navbar.html       # Sticky glassmorphic neon header
-│       └── footer.html       # Modular cyberpunk technology footer
+│       ├── navbar.html       # Neon glow sticky navigation bar
+│       └── footer.html       # Tech credit footer component
 ├── dataset/
-│   └── spam.csv              # Raw CSV training SMS database
+│   └── spam.csv              # Raw CSV data utilized for classifier training
 ├── notebooks/
-│   └── sms_spam_detection.ipynb # Original Google Colab training notebook
+│   └── sms_spam_detection.ipynb # Google Colab research notebook
 ├── deployment/
-│   ├── Dockerfile            # Container definition
-│   ├── Procfile              # Process runner
-│   ├── runtime.txt           # Declared target python engine
-│   └── render.yaml           # One-click Render infrastructure setup
+│   ├── Dockerfile            # Multi-stage production container instruction
+│   ├── Procfile              # Process runner declaration (gunicorn)
+│   ├── runtime.txt           # Environment target Python version
+│   └── render.yaml           # Declarative blueprint for one-click Render setups
 ├── tests/
-│   ├── test_api.py           # Integration endpoints validation tests
-│   ├── test_model.py         # Binary checks and shape weights tests
-│   └── test_ui.py            # Page template rendering checks
-├── .gitignore                # Git exclusions
-├── LICENSE                   # Open-source MIT terms
-├── README.md                 # Detailed project guidebook
-└── main.py                   # Local development execution boots script
+│   ├── test_api.py           # Endpoint integration & schema validation tests
+│   ├── test_model.py         # Precision and confusion matrix tests
+│   └── test_ui.py            # Static views & DOM elements verification
+├── .gitignore                # Version control exclusions
+├── LICENSE                   # Open-source MIT license agreement
+└── main.py                   # Main bootstrapper script for development execution
 ```
-
----
-
-## 🚀 Local Installation
-
-Get the project running on your local machine in three steps:
-
-### 1. Clone & Setup Workspace
-Ensure Python 3 (Python 3.10+ recommended) is installed.
-```bash
-git clone https://github.com/yourusername/SpamShield-AI.git
-cd SpamShield-AI
-```
-
-### 2. Install Dependencies
-```bash
-pip install -r backend/requirements.txt
-```
-
-### 3. Run the Server
-```bash
-python main.py
-```
-The server will boot in development mode and listen at **`http://127.0.0.1:5000`**. Open this URL in your web browser!
 
 ---
 
 ## 🔌 API Reference
 
 ### 1. System Health Status
-* **Endpoint**: `/health`
-* **Method**: `GET`
-* **Response**:
-```json
-{
-  "status": "ok"
-}
-```
 
-### 2. Analyze Message Vector
-* **Endpoint**: `/predict`
-* **Method**: `POST`
-* **Payload**:
-```json
-{
-  "message": "Congratulations! You won 50,000 cash prize. Click now to claim your award."
-}
-```
-* **Success Response (200 OK)**:
-```json
-{
-  "prediction": "Spam",
-  "confidence": 99.4,
-  "risk_level": "High",
-  "probability": 0.994,
-  "keywords": ["congratulations", "win money", "cash prize", "claim reward", "click now"]
-}
-```
+Verify backend service availability.
 
-### 3. Retrieve Inference History Logs
-* **Endpoint**: `/api/history`
-* **Method**: `GET`
-* **Response (200 OK)**:
-```json
-[
-  {
-    "message": "Congratulations! You won 50,000 cash prize. Click now to claim your award.",
-    "prediction": "Spam",
-    "confidence": 99.4,
-    "risk_level": "High",
-    "probability": 0.994,
-    "keywords": ["congratulations", "win money", "cash prize", "claim reward", "click now"],
-    "created_at": "2026-05-27 12:05:32"
-  }
-]
-```
+*   **Endpoint**: `/health`
+*   **Method**: `GET`
+*   **Headers**: None
+*   **Response (200 OK)**:
+    ```json
+    {
+      "status": "ok"
+    }
+    ```
+
+### 2. Threat Vector Inference
+
+Analyze a text string for spam, phishing, and security vectors.
+
+*   **Endpoint**: `/predict`
+*   **Method**: `POST`
+*   **Headers**: `Content-Type: application/json`
+*   **Payload**:
+    ```json
+    {
+      "message": "Congratulations! You won 50,000 cash prize. Click now to claim your award."
+    }
+    ```
+*   **Response (200 OK)**:
+    ```json
+    {
+      "prediction": "Spam",
+      "confidence": 99.4,
+      "risk_level": "High",
+      "probability": 0.994,
+      "keywords": ["congratulations", "win money", "cash prize", "claim reward", "click now"]
+    }
+    ```
+
+### 3. Retrieve Inference Logs
+
+Fetch the history of executed scans from the server-side SQLite database.
+
+*   **Endpoint**: `/api/history`
+*   **Method**: `GET`
+*   **Response (200 OK)**:
+    ```json
+    [
+      {
+        "id": 1,
+        "message": "Congratulations! You won 50,000 cash prize. Click now to claim your award.",
+        "prediction": "Spam",
+        "confidence": 99.4,
+        "risk_level": "High",
+        "probability": 0.994,
+        "keywords": ["congratulations", "win money", "cash prize", "claim reward", "click now"],
+        "created_at": "2026-05-27 12:05:32"
+      }
+    ]
+    ```
 
 ---
 
-## 📊 Dashboard Guide
+## 🚀 Local Installation
 
-* **Stats Grid**: The top stats grid displays counts of total scans, spam instances flagged, and safe messages passed.
-* **Accuracy Panel**: Shows model testing metrics (97.8% Accuracy and 100% Precision).
-* **Ratio Graph**: Renders a dynamic doughnut chart showing the distribution of safe vs. spam items.
-* **Scan logs table**: The interactive logs display recent messages, threat classification outcomes, prediction confidence, threat level weights, and time stamps. Click **Clear Logs** to wipe histories.
+Deploy SpamShield AI on your local development workstation in three simple steps:
 
----
+### 1. Clone & Set Up Directory
 
-## ☁️ Deployment
-
-### Render Blueprint
-This project is configured with `deployment/render.yaml` for Render. Import your repository, and Render will automatically detect the blueprint and provision a web service executing the `deployment/Dockerfile`.
-
-### Docker Container Setup
-To build and run the platform in a container:
 ```bash
-docker build -f deployment/Dockerfile -t spamshield-ai .
-docker run -p 5000:5000 spamshield-ai
+git clone https://github.com/samarthupadhyay2294-rgb/SMS-spam-detection.git
+cd SMS-spam-detection
 ```
+
+### 2. Install Dependencies
+
+Ensure Python 3.10+ is configured. Create a virtual environment and run the package installer:
+
+```bash
+# Initialize virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# On Windows PowerShell:
+.\venv\Scripts\Activate.ps1
+# On macOS / Linux:
+source venv/bin/activate
+
+# Install required packages
+pip install -r backend/requirements.txt
+```
+
+> [!NOTE]
+> During first-time environment startup, NLTK stopword bundles are automatically fetched and indexed via python hooks, ensuring a smooth, manual-intervention-free bootstrap.
+
+### 3. Run Development Web Server
+
+```bash
+python main.py
+```
+
+The system will start up in development mode and expose the web UI at **`http://127.0.0.1:5000`**. Go ahead and open it in your browser!
 
 ---
 
-## 🔮 Future Roadmap
+## 📊 Dashboard & Usage Guide
 
-* **SMS API Gateway Integration**: Connect Twilio or Vonage webhooks to scan incoming SMS messages in real-time.
-* **User Authentication**: Secure individual analytics dashboards for enterprise admins.
-* **Fine-Tuning Transformer models**: Experiment with DistilBERT or RoBERTa for complex contextual classification.
+1.  **Scanner Interface**: Open the home screen, insert a message into the scanning terminal, and click **Analyze Vector**. A simulated AI matrix scanner will highlight keywords, compute probabilities, and prompt threat flags.
+2.  **Threat Analytics**: Toggle the **Dashboard** in the navbar to explore live metrics. The interface visualizes real-time metrics, system accuracies, and logs recent inputs in an interactive table.
+3.  **Local Isolation**: Click **Clear Database** in the dashboard to instantly wipe both the client's `localStorage` and the database server's transaction log.
+
+---
+
+## ☁️ Production Deployment
+
+### Render One-Click Deployment
+
+This repository is optimized for [Render](https://render.com/). It includes a declarative infrastructure blueprint `deployment/render.yaml` that specifies the runtime, environment, and services needed to spin up your application.
+
+1.  Connect your GitHub repository to Render.
+2.  Select **Blueprint** from the Render Dashboard.
+3.  Confirm creation. Render will build the container using the project's multi-stage Dockerfile and host it globally.
+
+### Manual Docker Container Deployment
+
+If you prefer containerized deployment locally or on a standard cloud VM (e.g., AWS, GCP, Azure):
+
+```bash
+# Build the Docker image
+docker build -f deployment/Dockerfile -t spamshield-ai .
+
+# Run the container exposing port 5000
+docker run -d -p 5000:5000 spamshield-ai
+```
 
 ---
 
 ## 📄 License
-This codebase is distributed under the [MIT License](LICENSE).
+
+This repository is distributed under the terms of the open-source [MIT License](LICENSE). Feel free to use, modify, and distribute this platform as desired.
+
+---
+
+<div align="center">
+  Made with 💜 and Artificial Intelligence.
+</div>
