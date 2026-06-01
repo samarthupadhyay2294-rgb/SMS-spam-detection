@@ -295,8 +295,4 @@ docker run -d -p 5000:5000 spamshield-ai
 
 This repository is distributed under the terms of the open-source [MIT License](LICENSE). Feel free to use, modify, and distribute this platform as desired.
 
----
 
-<div align="center">
-  Made with 💜 and Artificial Intelligence.
-</div>
